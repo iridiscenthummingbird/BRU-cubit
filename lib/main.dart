@@ -1,3 +1,4 @@
+import 'package:bru/screens/home_screen/home_screen.dart';
 import 'package:bru/screens/login_screen/login_screen.dart';
 import 'package:bru/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => const SplashScreen(),
-        '/login': (context) => const LoginScreen()
+        '/login': (context) => const LoginScreen(),
+        '/home': (context) => const HomeScreen()
       },
     );
   }

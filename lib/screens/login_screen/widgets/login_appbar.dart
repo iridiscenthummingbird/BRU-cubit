@@ -20,10 +20,11 @@ class LoginAppbar extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               "assets/splash_screen_logo.svg",
-              width: ScalableSize(context).getScalableWidth(110),
+              width: ScalableSize(context).getScalableHeight(110),
             ),
           ),
           Container(
+            height: ScalableSize(context).getScalableHeight(47),
             color: const Color(0xFF2B2B2B),
             child: TabBar(
               indicatorPadding: EdgeInsets.only(
@@ -32,6 +33,8 @@ class LoginAppbar extends StatelessWidget {
               ),
               indicatorWeight: ScalableSize(context).getScalableHeight(3),
               indicatorColor: const Color(0xFF71883A),
+              labelColor: const Color(0xFFDADADA),
+              unselectedLabelColor: const Color(0xFFDADADA),
               labelStyle:
                   const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               tabs: const [
