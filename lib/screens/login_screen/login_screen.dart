@@ -31,6 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     _streamController = StreamController<bool>.broadcast();
     _bloc = LoginBloc();
+    _bloc.stream.listen((event) {
+      if (event is LoginToHome) {
+        Navigator.pushNamed(context, '/home');
+      }
+    });
 
     super.initState();
   }
@@ -177,14 +182,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 GestureDetector(
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
-                                      _bloc
-                                          .verifyUser(_emailController.text,
-                                              _passwordController.text, context)
-                                          .then((value) {
-                                        if (value) {
-                                          Navigator.pushNamed(context, '/home');
-                                        }
-                                      });
+                                      _bloc.add(
+                                        LoginAuthorization(
+                                          email: _emailController.text,
+                                          password: _passwordController.text,
+                                          context: context,
+                                        ),
+                                      );
                                     }
                                   },
                                   child: const LoginButton(),
