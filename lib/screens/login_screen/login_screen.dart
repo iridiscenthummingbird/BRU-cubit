@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bru/screens/login_screen/bloc/login_bloc.dart';
+import 'package:bru/screens/login_screen/cubit/login_cubit.dart';
 import 'package:bru/screens/login_screen/widgets/hint_text.dart';
 import 'package:bru/screens/login_screen/widgets/login_appbar.dart';
 import 'package:bru/screens/login_screen/widgets/login_apple_button.dart';
@@ -23,16 +23,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  late LoginBloc _bloc;
+  late LoginCubit _cubit;
 
   late StreamController<bool> _streamController;
 
   @override
   void initState() {
     _streamController = StreamController<bool>.broadcast();
-    _bloc = LoginBloc();
-    _bloc.stream.listen((event) {
-      if (event is LoginToHome) {
+    _cubit = LoginCubit();
+    _cubit.stream.listen((state) {
+      if (state is LoginToHome) {
         Navigator.pushNamed(context, '/home');
       }
     });
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
             body: TabBarView(
               children: [
                 BlocBuilder(
-                  bloc: _bloc,
+                  bloc: _cubit,
                   builder: (context, state) {
                     if (state is LoginWait) {
                       return const Center(child: CircularProgressIndicator());
@@ -182,12 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 GestureDetector(
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
-                                      _bloc.add(
-                                        LoginAuthorization(
-                                          email: _emailController.text,
-                                          password: _passwordController.text,
-                                          context: context,
-                                        ),
+                                      _cubit.onLoginAutorization(
+                                        _emailController.text,
+                                        _passwordController.text,
+                                        context,
                                       );
                                     }
                                   },

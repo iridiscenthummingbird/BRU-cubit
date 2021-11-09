@@ -1,4 +1,4 @@
-# bru
+# bru-cubit
 
 A new Flutter project.
 
