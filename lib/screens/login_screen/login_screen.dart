@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bru/repository/user_repository.dart';
 import 'package:bru/screens/login_screen/cubit/login_cubit.dart';
 import 'package:bru/screens/login_screen/widgets/hint_text.dart';
 import 'package:bru/screens/login_screen/widgets/login_appbar.dart';
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     _streamController = StreamController<bool>.broadcast();
-    _cubit = LoginCubit();
+    _cubit = LoginCubit(userRepository: context.read<IUserRepository>());
     _cubit.stream.listen((state) {
       if (state is LoginToHome) {
         Navigator.pushNamed(context, '/home');
